@@ -1,0 +1,88 @@
+/* 
+    Document   : style
+    Created on : Mar 13, 2012, 9:17:16 AM
+    Author     : Student
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+body
+{
+    background-color: #0066cc;
+}
+
+/* css of index page starts */
+#content
+{
+    margin: auto;
+    margin-top: 10%;
+    border-width: 10px;
+    border-radius: 10px;
+    background-color: #33ccff;
+    width:500px;
+    height:500px;
+    text-align: center;
+}
+#header
+{
+    min-height: 30%;
+    padding-top: 50px;
+}
+#center
+{
+    min-height: 40%;
+}
+#center table
+{
+    width: 80%;
+    height : 80%;
+    margin:auto;
+}
+#footer
+{
+    font-weight: bold;
+}
+/* css of index page ends */
+
+/* css of registration page starts */
+
+#register
+{
+    margin: auto;
+    margin-top: 10%;
+    border-width: 10px;
+    border-radius: 10px;
+    background-color: #33ccff;
+    width:500px;
+    height:500px;
+    text-align: center;
+}
+
+#regHeader
+{
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+#regCenter
+{
+    min-height: 90%;
+}
+
+#regCenter table
+{
+    width: 80%;
+    height : 80%;
+    margin:auto;
+    font-weight: bold;
+}
+
+#regFooter
+{
+    height: 10%;
+    margin:auto;
+    margin-top:-150px;
+    font-weight: bold;
+}
+
+/* css of registration page ends */

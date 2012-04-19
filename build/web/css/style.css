@@ -1,0 +1,63 @@
+body
+{
+	background : #B0BCE8;
+}
+
+#content
+{
+	width : 1200px;
+	background : #ffffff;
+	margin : auto;
+	min-height : 650px;
+	border-radius : 10px;
+}
+
+#sidebar
+{
+	background : #000000;
+	min-height : 650px;
+	width : 200px;
+	border-radius : 10px 0px 0px 10px;
+}
+
+#sidebar a {color:#ffffff; text-decoration:none; font-size:20px; width:40px; margin-top:10px; margin-left:10px; line-height:44px;}
+
+#header
+{
+	float:right;
+	font-size:20px;
+	margin-right:20px;
+	margin-top:20px;
+}
+
+#books
+{
+	width:1000px;
+	min-height:540px;
+	background:#C0C0C0;
+	float:right;
+	margin-top : -578px;
+}
+
+#uploads table {margin-left:30px; margin-top:10px;}
+
+#uploads table tr td {background:#B0BCE8; line-height:30px; max-width:232px;}
+
+#uploads iframe {width:1000px; border:0px; min-height:535px;}
+
+#suggestions
+{
+	margin-top:20px;
+}
+
+#suggestions table {margin-left:30px; margin-top:10px;}
+
+#suggestions table tr td {background:#ffffff; line-height:30px; max-width:232px;}
+
+
+#footer
+{
+	float:right;
+	margin-top:-30px;
+	margin-right:20px;
+}

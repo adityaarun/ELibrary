@@ -1,0 +1,307 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.1.3
+-- Dumped by pg_dump version 9.1.3
+-- Started on 2012-04-16 21:22:30 IST
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 2769 (class 1262 OID 16393)
+-- Name: Elibrary; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE "Elibrary" WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8';
+
+
+ALTER DATABASE "Elibrary" OWNER TO postgres;
+
+\connect "Elibrary"
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 166 (class 3079 OID 12529)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 2772 (class 0 OID 0)
+-- Dependencies: 166
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 163 (class 1259 OID 16404)
+-- Dependencies: 2751 5
+-- Name: books; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE books (
+    bookid character varying(15) NOT NULL,
+    book_name character varying(50) NOT NULL,
+    author character varying(50) NOT NULL,
+    category character varying(50),
+    uploaderid character varying(50),
+    rating numeric(3,2),
+    noofratings integer NOT NULL,
+    keywords character varying(50),
+    CONSTRAINT books_rating_check CHECK (((rating >= (0)::numeric) AND (rating < (6)::numeric)))
+);
+
+
+ALTER TABLE public.books OWNER TO postgres;
+
+--
+-- TOC entry 162 (class 1259 OID 16399)
+-- Dependencies: 2750 5
+-- Name: categories; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE categories (
+    catname character varying(50) NOT NULL,
+    noofbooks integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE public.categories OWNER TO postgres;
+
+--
+-- TOC entry 165 (class 1259 OID 40971)
+-- Dependencies: 5
+-- Name: specialrequest; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE specialrequest (
+    request_id integer NOT NULL,
+    purpose text,
+    size character varying(100),
+    uid text
+);
+
+
+ALTER TABLE public.specialrequest OWNER TO postgres;
+
+--
+-- TOC entry 164 (class 1259 OID 40969)
+-- Dependencies: 165 5
+-- Name: specialrequest_request_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE specialrequest_request_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.specialrequest_request_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2773 (class 0 OID 0)
+-- Dependencies: 164
+-- Name: specialrequest_request_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE specialrequest_request_id_seq OWNED BY specialrequest.request_id;
+
+
+--
+-- TOC entry 2774 (class 0 OID 0)
+-- Dependencies: 164
+-- Name: specialrequest_request_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('specialrequest_request_id_seq', 3, true);
+
+
+--
+-- TOC entry 161 (class 1259 OID 16394)
+-- Dependencies: 5
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE users (
+    loginid character varying(50) NOT NULL,
+    psswrd character varying(50) NOT NULL,
+    isadmin boolean NOT NULL,
+    username character varying(50),
+    city character varying(50),
+    contactno numeric
+);
+
+
+ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- TOC entry 2752 (class 2604 OID 40974)
+-- Dependencies: 164 165 165
+-- Name: request_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY specialrequest ALTER COLUMN request_id SET DEFAULT nextval('specialrequest_request_id_seq'::regclass);
+
+
+--
+-- TOC entry 2765 (class 0 OID 16404)
+-- Dependencies: 163
+-- Data for Name: books; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO books VALUES ('Bar_c/c_1', 'Parallel Programming', 'Barry Wilkinson', 'c/c++', 'adityaarun1990@gmail.com', 0.00, 0, 'pap');
+INSERT INTO books VALUES ('som_lin_1', 'Advanced Bash Scripting', 'someone', 'linux', 'das_pradyumna@ymail.com', 0.00, 0, 'a book on bash scripting');
+INSERT INTO books VALUES ('adi_php_1', 'The great php granth', 'aditya arun', 'php', 'adityaarun1990@gmail.com', 1.00, 1, 'a comprehensive guide to java');
+INSERT INTO books VALUES ('Her_jav_1', 'The Complete Reference to Java ', 'Herbert Schildt', 'java', 'das_pradyumna@ymail.com', 3.88, 8, 'a comprehensive guide to java');
+INSERT INTO books VALUES ('gon_jav_3', 'Digital image processing', 'gonzalez', 'Image processing', 'adityaarun1990@gmail.com', 0.00, 0, 'dip');
+INSERT INTO books VALUES ('Wil_c/c_3', 'Parallel Programming', 'Wilkinson', 'c/c++', 'kaustavr91', 2.50, 2, 'parallel');
+INSERT INTO books VALUES ('raj_ooa_1', 'Heat and Mass Transfer', 'rajput', 'ooad', 'das_pradyumna@ymail.com', 0.00, 0, 'heat');
+INSERT INTO books VALUES ('Chr_nov_2', 'Inheritance', 'Christopher Paolini', 'novels', 'das_pradyumna@ymail.com', 3.50, 2, 'a good book');
+INSERT INTO books VALUES ('adi_nov_4', 'gandhi', 'aditya arun', 'novels', 'plasmaboy911@gmail.com', 4.00, 1, 'a good book');
+
+
+--
+-- TOC entry 2764 (class 0 OID 16399)
+-- Dependencies: 162
+-- Data for Name: categories; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO categories VALUES ('php', 1);
+INSERT INTO categories VALUES ('linux', 1);
+INSERT INTO categories VALUES ('java', 2);
+INSERT INTO categories VALUES ('Image processing', 1);
+INSERT INTO categories VALUES ('c/c++', 3);
+INSERT INTO categories VALUES ('TestFinal', 0);
+INSERT INTO categories VALUES ('ooad', 1);
+INSERT INTO categories VALUES ('novels', 4);
+
+
+--
+-- TOC entry 2766 (class 0 OID 40971)
+-- Dependencies: 165
+-- Data for Name: specialrequest; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO specialrequest VALUES (1, 'Test', NULL, NULL);
+INSERT INTO specialrequest VALUES (2, 'Test1', NULL, NULL);
+INSERT INTO specialrequest VALUES (3, 'dontknow', '20 mb', 'das_pradyumna@ymail.com');
+
+
+--
+-- TOC entry 2763 (class 0 OID 16394)
+-- Dependencies: 161
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO users VALUES ('shohitdoon@gmail.com', 'shohit', false, 'Shohit Bajaj', 'Manipal', 9456523232);
+INSERT INTO users VALUES ('akshay@gmail.com', 'akshay', false, 'Akshay Bhasin', 'Manipal', 9535417610);
+INSERT INTO users VALUES ('aakashbahadur@gmail.com', 'bahadur', false, 'aakash bahadur', 'Manipal', 9538341902);
+INSERT INTO users VALUES ('abhi', 'abhi', false, 'abhinay', 'Manipal', 234234423);
+INSERT INTO users VALUES ('das_pradyumna@ymail.com', 'hyudai', true, 'Pradyumna Das', 'Kolkata', 9535617310);
+INSERT INTO users VALUES ('tarun090290@gmail.com', 'tarun', false, 'Tarun Srivastav', 'Kanpur', 966410596);
+INSERT INTO users VALUES ('adityaarun1990@gmail.com', 'a123', true, 'Aditya Arun', 'Patna', 9886210911);
+INSERT INTO users VALUES ('plasmaboy911@gmail.com', 'pari', true, 'Parikshit Singh', 'Manipal', 9535672345);
+INSERT INTO users VALUES ('kaustavr91', 'helloworld', false, 'Kaustav Roychowdhury', 'Kolkata', 92929222);
+INSERT INTO users VALUES ('adi@gmail.com', 'adi', false, 'adi', 'adi', 9989898989);
+
+
+--
+-- TOC entry 2758 (class 2606 OID 16409)
+-- Dependencies: 163 163
+-- Name: books_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY books
+    ADD CONSTRAINT books_pkey PRIMARY KEY (bookid);
+
+
+--
+-- TOC entry 2756 (class 2606 OID 16403)
+-- Dependencies: 162 162
+-- Name: categories_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY categories
+    ADD CONSTRAINT categories_pkey PRIMARY KEY (catname);
+
+
+--
+-- TOC entry 2760 (class 2606 OID 40979)
+-- Dependencies: 165 165
+-- Name: specialrequest_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY specialrequest
+    ADD CONSTRAINT specialrequest_pkey PRIMARY KEY (request_id);
+
+
+--
+-- TOC entry 2754 (class 2606 OID 16398)
+-- Dependencies: 161 161
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (loginid);
+
+
+--
+-- TOC entry 2761 (class 2606 OID 16410)
+-- Dependencies: 163 2755 162
+-- Name: books_category_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY books
+    ADD CONSTRAINT books_category_fkey FOREIGN KEY (category) REFERENCES categories(catname);
+
+
+--
+-- TOC entry 2762 (class 2606 OID 16415)
+-- Dependencies: 2753 163 161
+-- Name: books_uploaderid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY books
+    ADD CONSTRAINT books_uploaderid_fkey FOREIGN KEY (uploaderid) REFERENCES users(loginid);
+
+
+--
+-- TOC entry 2771 (class 0 OID 0)
+-- Dependencies: 5
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2012-04-16 21:22:31 IST
+
+--
+-- PostgreSQL database dump complete
+--
+

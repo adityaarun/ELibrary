@@ -1,0 +1,13 @@
+README
+====================================================
+This is a project in JSP. It is a web based ELibrary
+system ehich allows users to upload,search,rate and 
+download books.
+
+Written in JSP with PostgreSQL acting as database backend.
+
+
+Aditya Arun
+IIIrd Year
+B.E. Computer Science and Engineering
+MIT Manipal
